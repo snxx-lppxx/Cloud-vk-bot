@@ -13,25 +13,28 @@ import time
 import json
 
 from vk_api.bot_longpoll import VkBotEventType, VkBotLongPoll
-from source.resource.word import err
+from vk_api.keyboard import VkKeyboard
 from source.betypes.config import token, version, gid
 
-from vk_api.keyboard import VkKeyboard, VkKeyboardColor
+vk_session = vk_api.VkApi(token=token)
+vk_session._auth_token()
 
-vk = vk_api.VkApi(token=token)
-vk._auth_token()
-vk.get_api()
+vk = vk_session.get_api()
 longpoll = VkBotLongPoll(vk, gid)
 
 settings = dict(one_time=False, inline=True)
+f_toggle: bool = False
 
 class Server(object):
 
-	# Send starting message. Etry point
-	print('{}\n{}{}\n'.format('Server started...', 'API: ', version))
+	def __init__(self):
+		# Send starting message. Etry point
+		print('{}\n{}{}\n'.format('Server started...', 'API: ', version))
+
+class getKeyboard(object):
 
 # INFDEF MAIN
-	def __init__(self, keyboard):
+	def main(keyboard):
 		''' Creating keyboards '''
 
 		# Keyboard number-1
@@ -54,8 +57,6 @@ class Server(object):
 # ENDIF MAIN
 
 # IFNDEF LOGICS
-f_toggle: bool = False
-
 for event in longpoll.listen():
 	keyboard = vk_api.keyboard.VkKeyboard(**settings)
 	try:
@@ -94,4 +95,5 @@ for event in longpoll.listen():
 # ENDIF LOGICS
 
 if __name__ == '__main__':
-	Server(object).main(keyboard)
+	Server(object).__init__(self)
+	getKeyboard(object).main(keyboard)
